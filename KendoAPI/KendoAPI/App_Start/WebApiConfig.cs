@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+//using Microsoft.Json.Serialization;
+using System.Web.Http.Cors;
 
 namespace KendoAPI
 {
@@ -13,6 +15,9 @@ namespace KendoAPI
 
             // Web API 路由
             config.MapHttpAttributeRoutes();
+
+            var cors = new EnableCorsAttribute("*", "*", "*");
+            config.EnableCors(cors);
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
