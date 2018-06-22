@@ -31,32 +31,34 @@ namespace KendoAPI.Controllers
             return items;
         }
 
-        //[Route("{id}")]
-        //[HttpGet]
-        //public IHttpActionResult Get(string id)
-        //{
-        //    var db = new SqlConnection(
-        //             ConfigurationManager
-        //             .ConnectionStrings["db"]
-        //             .ConnectionString);
+        [Route("{id}")]
+        [HttpGet]
+        public IHttpActionResult Get(string id)
+        {
+            var db = new SqlConnection(
+                     ConfigurationManager
+                     .ConnectionStrings["db"]
+                     .ConnectionString);
 
-        //    var items = db.Query<Products>(
-        //        "SELECT * FROM Products WHERE ProductID = @id", new
-        //        {
-        //            id = id
-        //        });
+            var items = db.Query<Products>(
+                //"SELECT * FROM Products WHERE ProductID = @id",
+                "SELECT * FROM Car_Brand WHERE F10400 = @f10400",
+                new
+                {
+                    f10400 = id
+                });
 
-        //    var item = items.FirstOrDefault();
+            var item = items.FirstOrDefault();
 
-        //    if (item == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    else
-        //    {
-        //        return Content(HttpStatusCode.OK, item);
-        //    }
-        //}
+            if (item == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                return Content(HttpStatusCode.OK, item);
+            }
+        }
 
         [Route("")]
         [HttpPost]
@@ -70,9 +72,9 @@ namespace KendoAPI.Controllers
             db.Execute("INSERT INTO Car_Brand (Id, F10400, F10401)" +
                        " VALUES (@id, @f10400 ,@f10401)", new
                        {
-                           item.Id,
-                           item.F10400,
-                           item.F10401
+                           id = item.Id,
+                           f10400 = item.F10400,
+                           f10401 = item.F10401
                        });
             //"INSERT INTO Products (ProductID, CategoryID, ProductName, Stock, UnitPrice, Size, Color, Instructions, Path)" +
             //"VALUES (@productID, @categoryID, @productName, @stock, @unitPrice, @size, @color, @instructions, @path)", new
