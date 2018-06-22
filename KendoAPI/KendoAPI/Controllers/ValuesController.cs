@@ -25,7 +25,7 @@ namespace KendoAPI.Controllers
                      .ConnectionStrings["db"]
                      .ConnectionString);
 
-            var items = db.Query<Products>("SELECT * FROM Car_Brand ORDER BY Id DESC");
+            var items = db.Query<Products>("SELECT * FROM Car_Brand ORDER BY F10400 DESC");
             //"SELECT * FROM Products ORDER BY ProductID DESC");
 
             return items;
