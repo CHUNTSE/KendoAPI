@@ -98,7 +98,7 @@ namespace KendoAPI.Controllers
                      .ConnectionStrings["db"]
                      .ConnectionString);
 
-            db.Execute("UPDATE Car_Brand SET F10400 = @f10400, F10401 = @f10401 WHERE Id = @id",
+            db.Execute("UPDATE Car_Brand SET Id = @id, F10401 = @f10401 WHERE F10400 = @f10400",
                         new
                         {
                             item.Id,
@@ -126,7 +126,7 @@ namespace KendoAPI.Controllers
 
             db.Execute(
                 "DELETE FROM Car_Brand " +
-                "WHERE Id = @id", new
+                "WHERE F10400 = @f10400", new
                 {
                     id,
                 });
