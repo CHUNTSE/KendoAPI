@@ -128,7 +128,7 @@ namespace KendoAPI.Controllers
                 "DELETE FROM Car_Brand " +
                 "WHERE F10400 = @f10400", new
                 {
-                    id,
+                    f10400 = id,
                 });
         }
     }
