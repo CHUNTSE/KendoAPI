@@ -25,83 +25,95 @@ namespace KendoAPI.Controllers
                      .ConnectionStrings["db"]
                      .ConnectionString);
 
-            var items = db.Query<Products>(
-                //"SELECT * FROM Car_Brand ORDER BY Id DESC");
-            "SELECT * FROM Products ORDER BY ProductID DESC");
+            var items = db.Query<Products>("SELECT * FROM Car_Brand ORDER BY Id DESC");
+            //"SELECT * FROM Products ORDER BY ProductID DESC");
 
             return items;
         }
 
-        [Route("{id}")]
-        [HttpGet]
-        public IHttpActionResult Get(string id)
-        {
-            var db = new SqlConnection(
-                     ConfigurationManager
-                     .ConnectionStrings["db"]
-                     .ConnectionString);
+        //[Route("{id}")]
+        //[HttpGet]
+        //public IHttpActionResult Get(string id)
+        //{
+        //    var db = new SqlConnection(
+        //             ConfigurationManager
+        //             .ConnectionStrings["db"]
+        //             .ConnectionString);
 
-            var items = db.Query<Products>(
-                "SELECT * FROM Products WHERE ProductID = @id", new
-                {
-                    id = id
-                });
+        //    var items = db.Query<Products>(
+        //        "SELECT * FROM Products WHERE ProductID = @id", new
+        //        {
+        //            id = id
+        //        });
 
-            var item = items.FirstOrDefault();
+        //    var item = items.FirstOrDefault();
 
-            if (item == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                return Content(HttpStatusCode.OK, item);
-            }
-        }
+        //    if (item == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    else
+        //    {
+        //        return Content(HttpStatusCode.OK, item);
+        //    }
+        //}
 
         [Route("")]
         [HttpPost]
-        public void Post([FromBody] Products item)
+        public void Create([FromBody] Products item)
         {
             var db = new SqlConnection(
                      ConfigurationManager
                      .ConnectionStrings["db"]
                      .ConnectionString);
 
-            db.Execute(
-                "INSERT INTO Products (ProductID, CategoryID, ProductName, Stock, UnitPrice, Size, Color, Instructions, Path)" +
-                "VALUES (@productID, @categoryID, @productName, @stock, @unitPrice, @size, @color, @instructions, @path)", new
-                {
-                    productID = item.ProductID,
-                    categoryID = item.CategoryID,
-                    productName = item.ProductName,
-                    stock = item.Stock,
-                    unitPrice = item.UnitPrice,
-                    size = item.Size,
-                    color = item.Color,
-                    instructions = item.Instructions,
-                    path = item.Path
-                });
+            db.Execute("INSERT INTO Car_Brand (Id, F10400, F10401)" +
+                       " VALUES (@id, @f10400 ,@f10401)", new
+                       {
+                           item.Id,
+                           item.F10400,
+                           item.F10401
+                       });
+            //"INSERT INTO Products (ProductID, CategoryID, ProductName, Stock, UnitPrice, Size, Color, Instructions, Path)" +
+            //"VALUES (@productID, @categoryID, @productName, @stock, @unitPrice, @size, @color, @instructions, @path)", new
+            //{
+            //    productID = item.ProductID,
+            //    categoryID = item.CategoryID,
+            //    productName = item.ProductName,
+            //    stock = item.Stock,
+            //    unitPrice = item.UnitPrice,
+            //    size = item.Size,
+            //    color = item.Color,
+            //    instructions = item.Instructions,
+            //    path = item.Path
+            //});
         }
 
         [Route("{id}")]
         [HttpPatch]
-        public void UpdateTodoTitle(string id, [FromBody] Products item)
+        public void Update([FromBody] Products item)
         {
             var db = new SqlConnection(
                      ConfigurationManager
                      .ConnectionStrings["db"]
                      .ConnectionString);
 
-            db.Execute(
-                "UPDATE Products " +
-                "SET ProductName = @productName " +
-                "WHERE ProductID = @productID", new
-                {
-                    productID = id,
-                    productName = item.ProductName
-                });
+            db.Execute("UPDATE Car_Brand SET F10400 = @f10400, F10401 = @f10401 WHERE Id = @id",
+                        new
+                        {
+                            item.Id,
+                            item.F10400,
+                            item.F10401
+                        });
+            //"UPDATE Products " +
+            //"SET ProductName = @productName " +
+            //"WHERE ProductID = @productID", new
+            //{
+            //    productID = id,
+            //    productName = item.ProductName
+            //});
         }
+
 
         [Route("{id}")]
         [HttpDelete]
@@ -113,10 +125,10 @@ namespace KendoAPI.Controllers
                      .ConnectionString);
 
             db.Execute(
-                "DELETE FROM Products " +
-                "WHERE ProductID = @productID", new
+                "DELETE FROM Car_Brand " +
+                "WHERE Id = @id", new
                 {
-                    productID = id,
+                    id,
                 });
         }
     }
