@@ -91,7 +91,7 @@ namespace KendoAPI.Controllers
             //});
         }
 
-        [Route("{id}")]
+        //[Route("{id}")]
         [HttpPatch]
         public void Update([FromBody] Products item)
         {
@@ -107,9 +107,7 @@ namespace KendoAPI.Controllers
                             item.F10400,
                             item.F10401
                         });
-            //"UPDATE Products " +
-            //"SET ProductName = @productName " +
-            //"WHERE ProductID = @productID", new
+            //"UPDATE Products SET ProductName = @productName WHERE ProductID = @productID", new
             //{
             //    productID = id,
             //    productName = item.ProductName
@@ -117,9 +115,7 @@ namespace KendoAPI.Controllers
         }
 
 
-        [Route("{id}")]
-        [HttpDelete]
-        public void Delete(string id)
+        public HttpResponseMessage Delete(string id)
         {
             var db = new SqlConnection(
                      ConfigurationManager
@@ -132,6 +128,23 @@ namespace KendoAPI.Controllers
                 {
                     f10400 = id,
                 });
+            return Request.CreateResponse(HttpStatusCode.OK,id);
         }
+        //[Route("{id}")]
+        //[HttpDelete]
+        //public void Delete(string id)
+        //{
+        //    var db = new SqlConnection(
+        //             ConfigurationManager
+        //             .ConnectionStrings["db"]
+        //             .ConnectionString);
+
+        //    db.Execute(
+        //        "DELETE FROM Car_Brand " +
+        //        "WHERE F10400 = @f10400", new
+        //        {
+        //            f10400 = id,
+        //        });
+        //}
     }
 }
