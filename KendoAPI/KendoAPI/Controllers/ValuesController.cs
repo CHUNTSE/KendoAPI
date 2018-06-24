@@ -93,7 +93,7 @@ namespace KendoAPI.Controllers
 
         [Route("{id}")]
         [HttpPatch]
-        public void Update(string id , [FromBody] Products item)
+        public void Update([FromBody] Products item)
         {
             var db = new SqlConnection(
                      ConfigurationManager
@@ -103,9 +103,9 @@ namespace KendoAPI.Controllers
             db.Execute("UPDATE Car_Brand SET Id = @id, F10401 = @f10401 WHERE F10400 = @f10400",
                         new
                         {
-                            id = item.Id,
-                            f10400 = id,
-                            f10401 = item.F10401
+                            item.Id,
+                            item.F10400,
+                            item.F10401
                         });
             //"UPDATE Products SET ProductName = @productName WHERE ProductID = @productID", new
             //{
