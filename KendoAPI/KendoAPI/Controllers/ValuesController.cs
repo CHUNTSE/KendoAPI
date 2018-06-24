@@ -115,24 +115,7 @@ namespace KendoAPI.Controllers
         }
 
 
-        public HttpResponseMessage Delete(string id)
-        {
-            var db = new SqlConnection(
-                     ConfigurationManager
-                     .ConnectionStrings["db"]
-                     .ConnectionString);
-
-            db.Execute(
-                "DELETE FROM Car_Brand " +
-                "WHERE F10400 = @f10400", new
-                {
-                    f10400 = id,
-                });
-            return Request.CreateResponse(HttpStatusCode.OK,id);
-        }
-        //[Route("{id}")]
-        //[HttpDelete]
-        //public void Delete(string id)
+        //public HttpResponseMessage Delete(string id)
         //{
         //    var db = new SqlConnection(
         //             ConfigurationManager
@@ -145,6 +128,23 @@ namespace KendoAPI.Controllers
         //        {
         //            f10400 = id,
         //        });
+        //    return Request.CreateResponse(HttpStatusCode.OK,id);
         //}
+        //[Route("{id}")]
+        [HttpDelete]
+        public void Delete(string id)
+        {
+            var db = new SqlConnection(
+                     ConfigurationManager
+                     .ConnectionStrings["db"]
+                     .ConnectionString);
+
+            db.Execute(
+                "DELETE FROM Car_Brand " +
+                "WHERE F10400 = @f10400", new
+                {
+                    f10400 = id,
+                });
+        }
     }
 }
